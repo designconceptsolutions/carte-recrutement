@@ -1,362 +1,11 @@
 {
-  "syncedAt": null,
+  "syncedAt": "2026-08-13T11:52:00.468Z",
   "rows": [
-    {
-      "pack": "Diamond",
-      "establishment": "Beyond Places",
-      "type": "Groupe hôtelier",
-      "roleVariant": "Directeur communication et marketing",
-      "sought": 1,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Fitz Roy",
-      "type": "Hotel 5*",
-      "roleVariant": "General Manager",
-      "sought": 1,
-      "sent": 3,
-      "note": "Exclusivité"
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Jules Verne",
-      "type": "Restaurant 2*",
-      "roleVariant": "Directeur adjoint restaurant",
-      "sought": 1,
-      "sent": 3,
-      "note": "Taux de réussite élevé"
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Eden Roc Saint Barth",
-      "type": "Hotel 5*",
-      "roleVariant": "Gouvernante générale",
-      "sought": 1,
-      "sent": 1,
-      "note": "Poste cadre sans remise"
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Abbaye des Vaux de Cernay",
-      "type": "Hôtel 5*",
-      "roleVariant": "Directeur hébergement",
-      "sought": 1,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "SBM",
-      "type": "Hotel 5*",
-      "roleVariant": "Responsable logistique traiteur",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Abbaye des Vaux de Cernay",
-      "type": "Hôtel 5*",
-      "roleVariant": "Directeur restaurant",
-      "sought": 1,
-      "sent": 2
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "SBM",
-      "type": "Hotel 5*",
-      "roleVariant": "Assistant gouvernante générale",
-      "sought": 1,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Four Seasons Megeve",
-      "type": "Hotel 5*",
-      "roleVariant": "Chef sushi",
-      "sought": 1,
-      "sent": 3
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "SBM",
-      "type": "Hotel 5*",
-      "roleVariant": "Directeur de nuit",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Cimalpes",
-      "type": "Residence",
-      "roleVariant": "Gouvernante générale",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Abbaye des Vaux de Cernay",
-      "type": "Hotel 5*",
-      "roleVariant": "Chef de cuisine italien",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Groupe MDCV (Ultimate Provence)",
-      "type": "Hotel 4*",
-      "roleVariant": "Directeur adjoint multisite",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Mouratoglou",
-      "type": "Hotel 4*",
-      "roleVariant": "Chef banquets",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Cimalpes",
-      "type": "Residence",
-      "roleVariant": "Chargée de gestion locative",
-      "sought": 1,
-      "sent": 2
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Cimalpes",
-      "type": "Residence",
-      "roleVariant": "Technicien",
-      "sought": 1,
-      "sent": 2
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Cocotte d'Isidore",
-      "type": "Restaurant",
-      "roleVariant": "Chef de cuisine",
-      "sought": 1,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Couvent des Minimes",
-      "type": "R&C 5*",
-      "roleVariant": "Chef de réception",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Cimalpes",
-      "type": "Residence",
-      "roleVariant": "Assistant gouvernante générale",
-      "sought": 1,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Villa Gallici",
-      "type": "Hotel 5*",
-      "roleVariant": "Maître d'hôtel",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Bristol",
-      "type": "Hotel 5*",
-      "roleVariant": "Gouvernante d'étage",
-      "sought": 2,
-      "sent": 1,
-      "note": "1 recrutement et 1 remplacement"
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Chateau de Fonscolombe",
-      "type": "Hotel 5*",
-      "roleVariant": "Chef de réception",
-      "sought": 1,
-      "sent": 3
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Plaza Athenee",
-      "type": "Hotel 5*",
-      "roleVariant": "Sous-chef",
-      "sought": 2,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Villa Gallici",
-      "type": "Hotel 5*",
-      "roleVariant": "Chef pâtissier",
-      "sought": 1,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Cimalpes",
-      "type": "Residence",
-      "roleVariant": "Gouvernante Courchevel",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Cordon Bleu",
-      "type": "Ecole",
-      "roleVariant": "Chef pâtissier",
-      "sought": 2,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Cimalpes",
-      "type": "Residence",
-      "roleVariant": "Gouvernante Alpes d'Huez",
-      "sought": 1,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Strato",
-      "type": "Hotel 5*",
-      "roleVariant": "Gouvernante générale",
-      "sought": 1,
-      "sent": 3
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Nice Passedat",
-      "type": "Restaurant 3*",
-      "roleVariant": "Chef pâtissier",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Abbaye des Vaux de Cernay",
-      "type": "Hotel 5*",
-      "roleVariant": "Pizzaiolo",
-      "sought": 1,
-      "sent": 5
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "La Chassagnette",
-      "type": "Restaurant 1*",
-      "roleVariant": "Maître d'hôtel",
-      "sought": 1,
-      "sent": 4,
-      "note": "Stand by"
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Bristol",
-      "type": "Hotel 5*",
-      "roleVariant": "Chef de rang",
-      "sought": 2,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Abbaye des Vaux de Cernay",
-      "type": "Hotel 5*",
-      "roleVariant": "Gouvernante d'étage",
-      "sought": 1,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Anto",
-      "type": "Restaurant",
-      "roleVariant": "Chef de partie",
-      "sought": 1,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Lionel Giraud LG Art",
-      "type": "Restaurant 2*",
-      "roleVariant": "Sommelier",
-      "sought": 1,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Plaza Athenee",
-      "type": "Hotel 5*",
-      "roleVariant": "Demi-chef de partie CDI",
-      "sought": 1,
-      "sent": 2
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "SBM",
-      "type": "Hotel 5*",
-      "roleVariant": "Responsable relation client",
-      "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Bristol",
-      "type": "Hotel 5*",
-      "roleVariant": "Commis de salle",
-      "sought": 2,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Plaza Athenee",
-      "type": "Hotel 5*",
-      "roleVariant": "Demi-chef de partie CDD",
-      "sought": 3,
-      "sent": 0
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Royal Champagne",
-      "type": "Hôtel 5*",
-      "roleVariant": "Responsable technique",
-      "sought": 1,
-      "sent": 1,
-      "note": "Remplacement"
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Folie Douce",
-      "type": "Hotel 4*",
-      "roleVariant": "Responsable hébergement",
-      "sought": 1,
-      "sent": 1,
-      "note": "Remplacement"
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Chateau de Fonscolombe",
-      "type": "Hotel 5*",
-      "roleVariant": "Directeur F&B",
-      "sought": 1,
-      "sent": 2
-    },
-    {
-      "pack": "Diamond",
-      "establishment": "Palais Ronsard",
-      "type": "Hotel 5*",
-      "roleVariant": "Directeur marketing et commercial",
-      "sought": 1,
-      "sent": 3
-    },
     {
       "pack": "Jungle",
       "establishment": "Chateau Royal (Noumea)",
       "type": "Hotel 5*",
-      "roleVariant": "Responsable hébergement",
+      "roleVariant": "Responsable Hebergement",
       "sought": 1,
       "sent": 1
     },
@@ -364,15 +13,16 @@
       "pack": "Jungle",
       "establishment": "Roi Arthur",
       "type": "",
-      "roleVariant": "Sous-chef",
+      "roleVariant": "sous chef",
       "sought": 1,
-      "sent": 1
+      "sent": 1,
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     },
     {
       "pack": "Jungle",
       "establishment": "Roi Arthur",
       "type": "",
-      "roleVariant": "Chef de partie",
+      "roleVariant": "chef de partie",
       "sought": 1,
       "sent": 1
     },
@@ -388,41 +38,43 @@
       "pack": "Jungle",
       "establishment": "Logis de la Cadene",
       "type": "Hotel 4*",
-      "roleVariant": "Chef de partie",
+      "roleVariant": "chef de partie",
       "sought": 1,
       "sent": 0
     },
     {
       "pack": "Jungle",
-      "establishment": "Nice Passedat",
-      "type": "Restaurant 3*",
-      "roleVariant": "Chef de partie",
+      "establishment": "Nice PAssedat",
+      "type": "restaurant 3*",
+      "roleVariant": "chef de partie",
       "sought": 1,
       "sent": 3
     },
     {
       "pack": "Jungle",
-      "establishment": "Nice Passedat",
-      "type": "Restaurant 3*",
-      "roleVariant": "Chef de partie pâtisserie",
+      "establishment": "Nice PAssedat",
+      "type": "restaurant 3*",
+      "roleVariant": "chef partie patisserie",
       "sought": 1,
-      "sent": 1
+      "sent": 1,
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     },
     {
       "pack": "Jungle",
-      "establishment": "Nice Passedat",
-      "type": "Restaurant 3*",
-      "roleVariant": "Chef de rang",
+      "establishment": "Nice PAssedat",
+      "type": "restaurant 3*",
+      "roleVariant": "chef de rang",
       "sought": 1,
       "sent": 0
     },
     {
       "pack": "Jungle",
-      "establishment": "Nice Passedat",
-      "type": "Restaurant 3*",
-      "roleVariant": "Demi-chef de partie",
+      "establishment": "Nice PAssedat",
+      "type": "restaurant 3*",
+      "roleVariant": "Demi CDP",
       "sought": 1,
-      "sent": 2
+      "sent": 2,
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     },
     {
       "pack": "Jungle",
@@ -430,8 +82,7 @@
       "type": "Restaurant",
       "roleVariant": "Chef de rang",
       "sought": 1,
-      "sent": 1,
-      "note": "Acompte payé"
+      "sent": 1
     },
     {
       "pack": "Jungle",
@@ -445,7 +96,7 @@
       "pack": "Jungle",
       "establishment": "Bonne Etape",
       "type": "Hotel 4*",
-      "roleVariant": "Chef de partie",
+      "roleVariant": "chef de partie",
       "sought": 1,
       "sent": 1
     },
@@ -453,9 +104,10 @@
       "pack": "Jungle",
       "establishment": "Bonne Etape",
       "type": "Hotel 4*",
-      "roleVariant": "Demi-chef de partie",
+      "roleVariant": "1/2 chef de partie",
       "sought": 1,
-      "sent": 1
+      "sent": 1,
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     },
     {
       "pack": "Jungle",
@@ -464,13 +116,13 @@
       "roleVariant": "Chef de partie",
       "sought": 1,
       "sent": 1,
-      "note": "Stand by"
+      "note": "stand by"
     },
     {
       "pack": "Jungle",
-      "establishment": "Couvent de Minimes",
+      "establishment": "Couvent de minimes",
       "type": "Hotel 5*",
-      "roleVariant": "Réceptionniste spa",
+      "roleVariant": "Receptionniste spa",
       "sought": 1,
       "sent": 1
     },
@@ -492,20 +144,21 @@
     },
     {
       "pack": "Jungle",
-      "establishment": "Diable au Coeur",
+      "establishment": "Diable au coeur",
       "type": "Hotel 4*",
-      "roleVariant": "Assistant responsable bar",
+      "roleVariant": "Assistant Resp Bar",
       "sought": 2,
-      "sent": 0
+      "sent": 0,
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     },
     {
       "pack": "Jungle",
       "establishment": "M Social",
       "type": "Hotel 4*",
-      "roleVariant": "Chef de rang",
+      "roleVariant": "chef de rang",
       "sought": 1,
       "sent": 1,
-      "note": "Stand by : la cliente voit plusieurs profils avant décision"
+      "note": "en stand by, la cliente voit plusieurs profil avant decision"
     },
     {
       "pack": "Jungle",
@@ -519,10 +172,11 @@
       "pack": "Jungle",
       "establishment": "Santa Giulia",
       "type": "Hotel 4*",
-      "roleVariant": "Agent de maintenance",
+      "roleVariant": "Agent maintenance",
       "sought": 1,
       "sent": 1,
-      "note": "Stand by"
+      "note": "stand by",
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     },
     {
       "pack": "Jungle",
@@ -531,7 +185,7 @@
       "roleVariant": "Commis de salle",
       "sought": 4,
       "sent": 0,
-      "note": "Faire le point logement"
+      "note": "faire le point logement"
     },
     {
       "pack": "Jungle",
@@ -540,21 +194,22 @@
       "roleVariant": "Sous-chef",
       "sought": 1,
       "sent": 0,
-      "note": "Poste en novembre"
+      "note": "poste Novembre"
     },
     {
       "pack": "Jungle",
       "establishment": "Maison Le Chevreuil",
       "type": "Hotel 4*",
-      "roleVariant": "Chef de partie / chef de rang",
+      "roleVariant": "Chef de partie\nChef de rang",
       "sought": 4,
-      "sent": 0
+      "sent": 0,
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     },
     {
       "pack": "Jungle",
       "establishment": "Bastide de Gordes",
       "type": "Hotel 5*",
-      "roleVariant": "Chef de partie",
+      "roleVariant": "chef de partie",
       "sought": 2,
       "sent": 1
     },
@@ -570,27 +225,29 @@
       "pack": "Jungle",
       "establishment": "Vieux Castillon",
       "type": "Hotel 5*",
-      "roleVariant": "Chef de rang / chef de partie",
+      "roleVariant": "chef de rang\nchef de partie",
       "sought": 2,
-      "sent": 1
+      "sent": 1,
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     },
     {
       "pack": "Jungle",
       "establishment": "Royal Champagne",
       "type": "Hôtel 5*",
-      "roleVariant": "Responsable technique",
+      "roleVariant": "Resonsable Technique",
       "sought": 1,
       "sent": 1,
-      "note": "Remplacement"
+      "note": "Rempla",
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     },
     {
       "pack": "Jungle",
       "establishment": "Abbaye",
       "type": "Hotel 5*",
-      "roleVariant": "Second pâtissier",
+      "roleVariant": "second patissier",
       "sought": 1,
       "sent": 0,
-      "note": "Remplacement"
+      "note": "rempla"
     },
     {
       "pack": "Jungle",
@@ -599,16 +256,17 @@
       "roleVariant": "Responsable F&B",
       "sought": 1,
       "sent": 0,
-      "note": "Remplacement"
+      "note": "rempla"
     },
     {
       "pack": "Jungle",
       "establishment": "Folie Douce",
       "type": "Hôtel 4*",
-      "roleVariant": "Responsable hébergement",
+      "roleVariant": "resp hebergement",
       "sought": 1,
       "sent": 2,
-      "note": "Remplacement"
+      "note": "rempla",
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     },
     {
       "pack": "Jungle",
@@ -620,18 +278,18 @@
     },
     {
       "pack": "Jungle",
-      "establishment": "Diable au Coeur",
+      "establishment": "Diable au coeur",
       "type": "Hotel 4*",
       "roleVariant": "Chef",
       "sought": 1,
       "sent": 0,
-      "note": "Remplacement"
+      "note": "rempla"
     },
     {
       "pack": "Jungle",
       "establishment": "Mirande",
       "type": "Hotel 5*",
-      "roleVariant": "Sommelier expérimenté",
+      "roleVariant": "Sommelier experimenté",
       "sought": 1,
       "sent": 1
     },
@@ -639,13 +297,13 @@
       "pack": "Jungle",
       "establishment": "Logis de la Cadene",
       "type": "Hotel 4*",
-      "roleVariant": "Chef de rang",
+      "roleVariant": "chef de rang",
       "sought": 1,
       "sent": 0
     },
     {
       "pack": "Jungle",
-      "establishment": "Pont de Brent",
+      "establishment": "Pont de brent",
       "type": "Restaurant 1*",
       "roleVariant": "Sous-chef",
       "sought": 1,
@@ -663,7 +321,7 @@
       "pack": "Jungle",
       "establishment": "Mas de Pierre",
       "type": "Hotel 5*",
-      "roleVariant": "Commis de cuisine",
+      "roleVariant": "commis de cuisine",
       "sought": 1,
       "sent": 1
     },
@@ -679,7 +337,7 @@
       "pack": "Jungle",
       "establishment": "Palais Ronsard",
       "type": "Hotel 5*",
-      "roleVariant": "Responsable développement commercial",
+      "roleVariant": "Responsable developpement commercial",
       "sought": 1,
       "sent": 2
     },
@@ -687,7 +345,7 @@
       "pack": "Jungle",
       "establishment": "Bristol",
       "type": "Hotel 5*",
-      "roleVariant": "Gouvernante d'étage",
+      "roleVariant": "gouvernante d'étage",
       "sought": 1,
       "sent": 0
     },
@@ -711,18 +369,10 @@
       "pack": "Jungle",
       "establishment": "La Cueillette",
       "type": "Restaurant",
-      "roleVariant": "Sommelier / chef de rang étoilé",
+      "roleVariant": "sommelier\nchef de rang étoilé",
       "sought": 1,
-      "sent": 1
-    },
-    {
-      "pack": "Jungle",
-      "establishment": "Le Roosevelt",
-      "type": "Hotel 4*",
-      "roleVariant": "Femme de chambre",
-      "sought": 1,
-      "sent": 0,
-      "note": "Laure"
+      "sent": 1,
+      "firstSeenAt": "2026-08-13T11:52:00.467Z"
     }
   ]
 }
