@@ -72,13 +72,19 @@ export const ROLE_GROUPS = [
   "Autre",
 ] as const;
 
-/** Range un intitulé libre dans une famille de métier. */
+/** Range un intitulé libre dans une famille de métier.
+ *  Le tableau emploie couramment les abréviations du métier : GM, GG (gouvernante
+ *  générale), CDR (chef de rang), CDP (chef de partie), F&B. */
 export function classifyRole(label: string): string {
   const k = normalizeKey(label);
+  if (/(^| )gm( |$)/.test(k)) return "Direction";
+  if (/(^| )gg( |$)|gouv/.test(k)) return "Hébergement";
+  if (/(^| )cdr( |$)/.test(k)) return "Salle & bar";
+  if (/(^| )cdp( |$)/.test(k)) return "Cuisine";
   if (/(sommelier|sommellerie)/.test(k)) return "Sommellerie";
   if (/(patissier|patisserie)/.test(k)) return "Pâtisserie";
   if (/(directeur|direction|general manager|adjoint|gerant)/.test(k)) return "Direction";
-  if (/(chef de rang|maitre d hotel|commis de salle|barman|bar|restaurant service)/.test(k)) {
+  if (/(chef de rang|maitre d hotel|commis de salle|commis salle|barman|bar|serveu)/.test(k)) {
     return "Salle & bar";
   }
   if (/(chef|cuisine|pizzaiolo|sushi|commis de cuisine|banquet)/.test(k)) return "Cuisine";
@@ -101,11 +107,13 @@ function slug(value: string) {
 function normalizeType(type: string): string | undefined {
   const trimmed = type.trim();
   if (!trimmed) return undefined;
-  return trimmed
+  const unified = trimmed
     .replace(/^h[oô]tel/i, "Hôtel")
     .replace(/^restaurant/i, "Restaurant")
     .replace(/^residence$/i, "Résidence")
     .replace(/^ecole$/i, "École");
+  // Le tableau alterne les casses (« groupe hotelier », « Hotel 5* »).
+  return unified[0].toUpperCase() + unified.slice(1);
 }
 
 /** Date de la dernière synchronisation avec le tableau (null si aucune). */
