@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 // Synchronise `src/data/rows.json` depuis le tableau Google Sheet publié.
 //
-//   SHEET_CSV_URL=https://docs.google.com/.../pub?gid=0&single=true&output=csv \
+//   SHEET_CSV_URL="<url onglet Diamond>,<url onglet Jungle>" \
 //     node scripts/sync-sheet.mjs
+//
+// Un CSV publié ne contient qu'un onglet : on accepte donc plusieurs URL
+// séparées par des virgules ou des retours à la ligne, lues dans l'ordre.
 //
 // Ce que le script garantit :
 //   - le pack « DIAMOND PRIVATE » est ignoré (clients particuliers) ;
@@ -108,10 +111,16 @@ function toInt(value) {
   return Number.isFinite(n) ? n : 0;
 }
 
-export function extractRows(csvText) {
+/**
+ * @param csvText  contenu CSV d'un onglet publié
+ * @param forcedPack  pack imposé pour les lignes sans titre de section ; les
+ *   sections explicitement repérées dans le fichier restent prioritaires, de
+ *   sorte qu'un « DIAMOND PRIVATE » reste écarté même en pack forcé.
+ */
+export function extractRows(csvText, forcedPack = null) {
   const table = parseCsv(csvText);
   const rows = [];
-  let pack = null;
+  let pack = forcedPack;
   let header = null;
 
   for (const cells of table) {
@@ -183,28 +192,63 @@ export function mergeFirstSeen(incoming, previous, now = new Date().toISOString(
   return { merged, added };
 }
 
+/** Télécharge un onglet publié et en extrait les lignes exploitables.
+ *  Le fragment `#pack=Jungle` force le pack des lignes sans titre de section. */
+async function fetchTab(rawUrl, position) {
+  const [url, fragment = ""] = rawUrl.split("#");
+  const forced = /pack=(diamond|jungle)/i.exec(fragment)?.[1];
+  const forcedPack = forced
+    ? forced[0].toUpperCase() + forced.slice(1).toLowerCase()
+    : null;
+
+  const response = await fetch(url, { redirect: "follow" });
+  if (!response.ok) {
+    throw new Error(`URL ${position} : téléchargement échoué (HTTP ${response.status}).`);
+  }
+  const csv = await response.text();
+  if (norm(csv).startsWith("<!doctype html") || csv.includes("<html")) {
+    throw new Error(
+      `URL ${position} : réponse HTML au lieu d'un CSV — l'onglet n'est sans doute pas ` +
+        "publié au bon format.\nFichier → Partager → Publier sur le web → onglet voulu " +
+        "→ « Valeurs séparées par des virgules »."
+    );
+  }
+  const rows = extractRows(csv, forcedPack);
+  console.log(
+    `URL ${position} : ${rows.length} ligne(s) — ` +
+      `${rows.filter((r) => r.pack === "Diamond").length} Diamond, ` +
+      `${rows.filter((r) => r.pack === "Jungle").length} Jungle`
+  );
+  if (!rows.length) {
+    console.warn(
+      `  ⚠ Aucune ligne retenue. Si cet onglet ne contient pas son titre de ` +
+        `section, ajoutez « #pack=Jungle » (ou « #pack=Diamond ») à la fin de l'URL.`
+    );
+  }
+  return rows;
+}
+
 async function main() {
-  const url = process.env.SHEET_CSV_URL;
-  if (!url) {
+  const urls = (process.env.SHEET_CSV_URL ?? "")
+    .split(/[\s,]+/)
+    .map((u) => u.trim())
+    .filter(Boolean);
+
+  if (!urls.length) {
     console.error("SHEET_CSV_URL manquant. Voir README.md § Synchronisation.");
     process.exit(1);
   }
 
-  const response = await fetch(url, { redirect: "follow" });
-  if (!response.ok) {
-    console.error(`Téléchargement du tableau échoué : HTTP ${response.status}`);
-    process.exit(1);
-  }
-  const csv = await response.text();
-  if (norm(csv).startsWith("<!doctype html") || csv.includes("<html")) {
-    console.error(
-      "Réponse HTML au lieu d'un CSV : l'onglet n'est probablement pas publié.\n" +
-        "Fichier → Partager → Publier sur le web → onglet voulu → format CSV."
-    );
-    process.exit(1);
+  const incoming = [];
+  for (const [i, url] of urls.entries()) {
+    try {
+      incoming.push(...(await fetchTab(url, i + 1)));
+    } catch (error) {
+      console.error(error.message);
+      process.exit(1);
+    }
   }
 
-  const incoming = extractRows(csv);
   if (!incoming.length) {
     console.error("Aucune ligne exploitable — structure du tableau modifiée ? Abandon.");
     process.exit(1);

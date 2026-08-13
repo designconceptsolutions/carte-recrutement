@@ -53,22 +53,32 @@ ponctuation), ce qui absorbe les variantes d'écriture du tableau.
 
 ## Synchronisation avec le Google Sheet
 
-### 1. Publier l'onglet
+### 1. Publier les onglets
 
-Dans le tableau : **Fichier → Partager → Publier sur le web**, sélectionner
-**l'onglet** voulu (pas « Document entier ») et le format **CSV**. Google fournit
-une URL en `.../pub?gid=…&single=true&output=csv`.
+Dans le tableau : **Fichier → Partager → Publier sur le web**. Un CSV ne peut
+contenir qu'un seul onglet : il faut donc **une publication par onglet**.
 
-> **Attention** — cette URL est lisible sans authentification. Ne publiez qu'un
-> onglet dépourvu de données financières. La synchronisation ignore de toute
-> façon les colonnes Tarif, Montant HT, Total HT et OD HT, mais l'URL publiée
-> expose l'onglet tel quel : c'est la publication elle-même qu'il faut
-> restreindre au bon onglet.
+| Portée (menu de gauche) | Format (menu de droite) |
+|---|---|
+| `DIAMOND INTERNATIONAL + PRIVATE` | Valeurs séparées par des virgules (.csv) |
+| `JUNGLE` | Valeurs séparées par des virgules (.csv) |
+
+Ne pas choisir « Document entier » : le format CSV ne sait pas représenter
+plusieurs onglets. L'onglet `RUBY RESEAU` n'est pas repris.
+
+Chaque publication fournit une URL en `.../pub?gid=…&single=true&output=csv`.
+
+> L'onglet Diamond contient aussi la section **DIAMOND PRIVATE**. Ce n'est pas
+> un problème pour la carte : la synchronisation repère les titres de section et
+> écarte systématiquement les lignes Private. En revanche, publier un onglet le
+> rend lisible par quiconque a l'URL — y compris ses colonnes financières.
 
 ### 2. Lancer la synchronisation
 
+Les URL se passent dans `SHEET_CSV_URL`, séparées par des virgules :
+
 ```bash
-SHEET_CSV_URL="https://docs.google.com/…/pub?gid=0&single=true&output=csv" \
+SHEET_CSV_URL="<url-diamond>,<url-jungle>" \
   node scripts/sync-sheet.mjs --dry-run   # aperçu, n'écrit rien
 ```
 
@@ -78,13 +88,19 @@ Ce qu'il fait :
 
 - ne retient que les sections **Diamond International** et **Jungle** ;
 - ignore **Diamond Private**, les lignes `Total` et les en-têtes fusionnés ;
-- n'extrait que les colonnes non sensibles (société, type, poste, nombre,
-  candidats envoyés, notes) ;
+- n'extrait que les colonnes non financières (société, type, poste, nombre,
+  candidats envoyés, notes) — Tarif, Montant HT, Total HT et OD HT ne sont
+  jamais lus, même lorsqu'ils sont présents dans le flux ;
 - horodate (`firstSeenAt`) les lignes absentes de la synchronisation précédente
   — c'est ce qui alimente l'onglet **Nouveautés**.
 
 À la toute première synchronisation, aucune ligne n'est marquée « nouvelle » :
 sans état antérieur, tout le tableau le serait, ce qui ne veut rien dire.
+
+Si un onglet publié ne contient pas son titre de section, aucune ligne n'en
+sortira. Suffixer alors son URL par `#pack=Jungle` (ou `#pack=Diamond`) pour
+imposer le pack. Les sections repérées dans le fichier restent prioritaires :
+un `DIAMOND PRIVATE` reste écarté même en pack forcé.
 
 ### 3. Automatiser
 
