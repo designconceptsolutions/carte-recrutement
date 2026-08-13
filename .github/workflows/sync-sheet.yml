@@ -15,6 +15,11 @@ on:
   schedule:
     - cron: "*/15 * * * *"
   workflow_dispatch:
+    inputs:
+      baseline:
+        description: "Repartir d'une base propre : aucune ligne marquée « nouvelle »"
+        type: boolean
+        default: false
 
 concurrency:
   group: sync-sheet
@@ -35,7 +40,9 @@ jobs:
       - name: Lire les onglets et mettre à jour rows.json
         env:
           SHEET_CSV_URL: ${{ secrets.SHEET_CSV_URL }}
-        run: node scripts/sync-sheet.mjs
+        run: |
+          node scripts/sync-sheet.mjs \
+            ${{ inputs.baseline && '--baseline --force' || '' }}
 
       - name: Publier si le tableau a changé
         run: |

@@ -24,6 +24,11 @@ import { dirname, resolve } from "node:path";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const TARGET = resolve(ROOT, "src/data/rows.json");
 const DRY_RUN = process.argv.includes("--dry-run");
+/** Passe outre le garde-fou de perte de lignes. */
+const FORCE = process.argv.includes("--force");
+/** Écrit l'état courant comme référence, sans marquer aucune ligne nouvelle.
+ *  À utiliser une fois, pour repartir d'une base propre. */
+const BASELINE = process.argv.includes("--baseline");
 
 /** Colonnes financières : jamais reprises, quoi qu'il arrive. */
 const FORBIDDEN = ["tarif", "montant", "total ht", "od ht"];
@@ -219,10 +224,17 @@ async function fetchTab(rawUrl, position) {
       `${rows.filter((r) => r.pack === "Diamond").length} Diamond, ` +
       `${rows.filter((r) => r.pack === "Jungle").length} Jungle`
   );
+
+  // Une source muette est presque toujours une erreur de configuration, pas un
+  // onglet réellement vide. Laisser passer reviendrait à effacer de la carte
+  // tous les postes de cet onglet.
   if (!rows.length) {
-    console.warn(
-      `  ⚠ Aucune ligne retenue. Si cet onglet ne contient pas son titre de ` +
-        `section, ajoutez « #pack=Jungle » (ou « #pack=Diamond ») à la fin de l'URL.`
+    throw new Error(
+      `URL ${position} : aucune ligne retenue.\n` +
+        `Cet onglet ne contient probablement pas de titre de section repérable ` +
+        `(« DIAMOND INTERNATIONAL », « JUNGLE ») dans ses cellules.\n` +
+        `Ajoutez « #pack=Diamond » ou « #pack=Jungle » à la fin de cette URL ` +
+        `dans le secret SHEET_CSV_URL.`
     );
   }
   return rows;
@@ -261,8 +273,27 @@ async function main() {
     // Pas encore de fichier : première synchronisation.
   }
 
-  const { merged, added } = mergeFirstSeen(incoming, previous);
+  // Garde-fou : une chute brutale du nombre de lignes trahit une source
+  // devenue muette (onglet dépublié, structure modifiée) bien plus souvent
+  // qu'une vraie purge du tableau. On préfère ne rien écrire.
+  if (previous.length && incoming.length < previous.length * 0.5 && !FORCE) {
+    console.error(
+      `Abandon : ${incoming.length} ligne(s) lue(s) contre ${previous.length} ` +
+        `précédemment, soit une perte de plus de la moitié.\n` +
+        `Vérifiez que chaque onglet est toujours publié et que le secret ` +
+        `SHEET_CSV_URL contient bien toutes les URL.\n` +
+        `Si cette baisse est volontaire, relancez avec --force.`
+    );
+    process.exit(1);
+  }
 
+  const { merged, added } = BASELINE
+    ? { merged: incoming, added: [] }
+    : mergeFirstSeen(incoming, previous);
+
+  if (BASELINE) {
+    console.log("Mode référence : aucune ligne n'est marquée « nouvelle ».");
+  }
   console.log(`Lignes lues        : ${incoming.length}`);
   console.log(`  Diamond / Jungle : ${merged.filter((r) => r.pack === "Diamond").length} / ${merged.filter((r) => r.pack === "Jungle").length}`);
   console.log(`Nouvelles lignes   : ${added.length}`);
