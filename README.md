@@ -104,14 +104,26 @@ un `DIAMOND PRIVATE` reste écarté même en pack forcé.
 
 ### 3. Automatiser
 
-Le workflow `.github/workflows/sync-sheet.yml` rejoue l'opération toutes les
-heures. Une seule chose à configurer : le secret **`SHEET_CSV_URL`** dans
-*Settings → Secrets and variables → Actions*.
+Deux niveaux, complémentaires.
+
+**Le workflow** `.github/workflows/sync-sheet.yml` rejoue l'opération toutes les
+15 minutes, et se déclenche aussi à la demande. Une seule chose à configurer :
+le secret **`SHEET_CSV_URL`** dans *Settings → Secrets and variables → Actions*,
+contenant les deux URL séparées par une virgule.
+
+> Le secret, pas le code : ce dépôt est public, une URL écrite dans un fichier
+> versionné serait lisible par tout le monde.
 
 Le workflow ne produit un commit que si le tableau a changé ; ce commit déclenche
 le redéploiement Vercel. La carte suit donc le tableau sans intervention.
 
-Il est aussi déclenchable à la main depuis l'onglet **Actions**.
+**La mise à jour immédiate** (facultatif) : le script Apps Script de
+`scripts/apps-script/` prévient GitHub dès qu'une personne modifie le tableau,
+ce qui ramène le délai de quinze minutes à quelques secondes. Voir
+`scripts/apps-script/README.gs.md`.
+
+Sans ce script, tout fonctionne déjà — simplement avec un quart d'heure de
+décalage au pire.
 
 ## Déploiement
 

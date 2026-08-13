@@ -1,13 +1,20 @@
 name: Synchroniser le tableau
 
-# Relit le Google Sheet publié et met à jour src/data/rows.json.
+# Relit les onglets publiés et met à jour src/data/rows.json.
 # Un commit n'est produit que si le contenu a changé ; ce commit déclenche
 # le redéploiement Vercel, donc la carte suit le tableau sans intervention.
+#
+# Trois déclencheurs :
+#   - repository_dispatch : immédiat, appelé par le script Google Sheets
+#     à chaque modification du tableau (voir scripts/apps-script/) ;
+#   - schedule : filet de sécurité, au cas où le script ne se déclenche pas ;
+#   - workflow_dispatch : lancement manuel depuis l'onglet Actions.
 on:
+  repository_dispatch:
+    types: [sheet-updated]
   schedule:
-    # Toutes les heures, aux alentours de la 20e minute (UTC).
-    - cron: "20 * * * *"
-  workflow_dispatch: # déclenchement manuel depuis l'onglet Actions
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
 
 concurrency:
   group: sync-sheet
@@ -25,7 +32,7 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Lire le tableau et mettre à jour rows.json
+      - name: Lire les onglets et mettre à jour rows.json
         env:
           SHEET_CSV_URL: ${{ secrets.SHEET_CSV_URL }}
         run: node scripts/sync-sheet.mjs
