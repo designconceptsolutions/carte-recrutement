@@ -1,0 +1,43 @@
+name: Synchroniser le tableau
+
+# Relit le Google Sheet publié et met à jour src/data/rows.json.
+# Un commit n'est produit que si le contenu a changé ; ce commit déclenche
+# le redéploiement Vercel, donc la carte suit le tableau sans intervention.
+on:
+  schedule:
+    # Toutes les heures, aux alentours de la 20e minute (UTC).
+    - cron: "20 * * * *"
+  workflow_dispatch: # déclenchement manuel depuis l'onglet Actions
+
+concurrency:
+  group: sync-sheet
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Lire le tableau et mettre à jour rows.json
+        env:
+          SHEET_CSV_URL: ${{ secrets.SHEET_CSV_URL }}
+        run: node scripts/sync-sheet.mjs
+
+      - name: Publier si le tableau a changé
+        run: |
+          if git diff --quiet -- src/data/rows.json; then
+            echo "Aucun changement dans le tableau."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/rows.json
+          git commit -m "Synchronisation du tableau de suivi"
+          git push

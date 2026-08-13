@@ -33,14 +33,19 @@ const PIN_ICONS: Record<Pack, L.DivIcon> = {
   Jungle: createPinIcon("Jungle"),
 };
 
-function coordinateKey(job: Job) {
+function hasCoords(job: Job): job is Job & { lat: number; lng: number } {
+  return Number.isFinite(job.lat) && Number.isFinite(job.lng);
+}
+
+function coordinateKey(job: Job & { lat: number; lng: number }) {
   return `${job.lat.toFixed(4)}|${job.lng.toFixed(4)}`;
 }
 
-function computeDispersedPositions(jobs: Job[]): Map<string, DispersedPosition> {
-  const groups = new Map<string, Job[]>();
+function computeDispersedPositions(
+  jobs: (Job & { lat: number; lng: number })[]
+): Map<string, DispersedPosition> {
+  const groups = new Map<string, (Job & { lat: number; lng: number })[]>();
   for (const job of jobs) {
-    if (!Number.isFinite(job.lat) || !Number.isFinite(job.lng)) continue;
     const key = coordinateKey(job);
     const group = groups.get(key);
     if (group) group.push(job);
@@ -66,6 +71,43 @@ function computeDispersedPositions(jobs: Job[]): Map<string, DispersedPosition> 
     });
   }
   return positions;
+}
+
+/** Recadre la vue sur l'ensemble des postes affichés. Utile car les données
+ *  débordent largement la France (Monaco, Saint-Barth, Nouméa, Marrakech) :
+ *  au cadrage par défaut, ces marqueurs sont hors écran. */
+function FitBoundsControl({ positions }: { positions: Map<string, DispersedPosition> }) {
+  const map = useMap();
+
+  const fit = () => {
+    const points = Array.from(positions.values()).filter(
+      (p) => Number.isFinite(p.lat) && Number.isFinite(p.lng)
+    );
+    if (points.length === 0) return;
+    map.fitBounds(
+      points.map((p) => [p.lat, p.lng] as [number, number]),
+      { padding: [40, 40], maxZoom: 12 }
+    );
+  };
+
+  return (
+    <div className="leaflet-top leaflet-right">
+      <div className="leaflet-control leaflet-bar">
+        <a
+          href="#"
+          role="button"
+          title="Recadrer sur tous les postes affichés"
+          onClick={(event) => {
+            event.preventDefault();
+            fit();
+          }}
+          className="!flex !w-auto items-center gap-1 !px-2 text-xs font-medium"
+        >
+          Recadrer
+        </a>
+      </div>
+    </div>
+  );
 }
 
 function FlyToFocused({
@@ -94,10 +136,7 @@ interface MapViewClientProps {
 }
 
 function MapViewClient({ jobs, focused, onSelect }: MapViewClientProps) {
-  const validJobs = useMemo(
-    () => jobs.filter((job) => Number.isFinite(job.lat) && Number.isFinite(job.lng)),
-    [jobs]
-  );
+  const validJobs = useMemo(() => jobs.filter(hasCoords), [jobs]);
   const positions = useMemo(() => computeDispersedPositions(validJobs), [validJobs]);
 
   return (
@@ -112,6 +151,7 @@ function MapViewClient({ jobs, focused, onSelect }: MapViewClientProps) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <FlyToFocused focused={focused} positions={positions} />
+      <FitBoundsControl positions={positions} />
       {validJobs.map((job) => {
         const position = positions.get(job.id);
         if (!position || !Number.isFinite(position.lat) || !Number.isFinite(position.lng)) {
@@ -125,13 +165,7 @@ function MapViewClient({ jobs, focused, onSelect }: MapViewClientProps) {
             eventHandlers={{ click: () => onSelect(job) }}
           >
             <Popup className="jobs-map-popup">
-              <div className="flex flex-col gap-2 p-3">
-                <img
-                  src={job.image}
-                  alt={`${job.establishment} — ${job.roleVariant}`}
-                  loading="lazy"
-                  className="h-24 w-full rounded-md object-cover"
-                />
+              <div className="flex flex-col gap-1.5 p-3">
                 <span
                   className={
                     job.pack === "Diamond"
@@ -143,7 +177,12 @@ function MapViewClient({ jobs, focused, onSelect }: MapViewClientProps) {
                 </span>
                 <p className="text-sm font-medium text-foreground">{job.establishment}</p>
                 <p className="text-xs text-muted-foreground">
-                  {job.city} · {job.roleVariant}
+                  {job.roleVariant}
+                  {job.city ? ` · ${job.city}` : ""}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {job.sought} recherché{job.sought > 1 ? "s" : ""} · {job.sent} envoyé
+                  {job.sent > 1 ? "s" : ""}
                 </p>
               </div>
             </Popup>

@@ -14,9 +14,9 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
 });
 
-const TITLE = "Carte des postes | Diamond & Jungle";
+const TITLE = "Carte des postes à pourvoir | Diamond & Jungle";
 const DESCRIPTION =
-  "Explorez les postes en restauration et hôtellerie à pourvoir partout en France, classés Diamond (haut de gamme) et Jungle (restauration décontractée).";
+  "Suivi cartographique des postes à pourvoir en hôtellerie-restauration, répartis entre les packs Diamond et Jungle.";
 
 export const metadata: Metadata = {
   title: TITLE,
