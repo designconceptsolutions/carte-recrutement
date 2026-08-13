@@ -54,4 +54,19 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/data/rows.json
           git commit -m "Synchronisation du tableau de suivi"
-          git push
+
+          # Le push échoue de deux façons, toutes deux passagères : une erreur
+          # 500 de GitHub, ou un rejet parce qu'un autre passage a commité
+          # entre-temps. Le rebase règle le second cas, la reprise le premier.
+          for tentative in 1 2 3 4 5; do
+            if git push; then
+              echo "Publié (tentative $tentative)."
+              exit 0
+            fi
+            echo "Push échoué (tentative $tentative), nouvelle tentative…"
+            sleep $((tentative * 5))
+            git pull --rebase origin main || true
+          done
+
+          echo "::error::Push impossible après 5 tentatives."
+          exit 1
