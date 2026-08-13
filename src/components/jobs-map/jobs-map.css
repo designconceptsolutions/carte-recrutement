@@ -1,0 +1,58 @@
+/* Styles du marqueur "goutte" Leaflet — non gérables via Tailwind car injectés
+   comme HTML brut dans un L.divIcon. Couleurs = tokens --diamond / --jungle. */
+
+.jobs-map-pin-wrapper {
+  background: transparent;
+  border: none;
+}
+
+.jobs-map-pin {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 70% 70% 70% 0;
+  transform: rotate(-45deg);
+  border: 2px solid var(--background, #fff);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.35);
+}
+
+.jobs-map-pin::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--background, #fff);
+  opacity: 0.4;
+}
+
+.jobs-map-pin--diamond {
+  background: var(--diamond);
+}
+
+.jobs-map-pin--jungle {
+  background: var(--jungle);
+}
+
+.jobs-map-pin--focused {
+  width: 28px;
+  height: 28px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.45);
+}
+
+.jobs-map-popup .leaflet-popup-content-wrapper {
+  border-radius: var(--radius-lg, 0.75rem);
+  background: var(--popover);
+  color: var(--popover-foreground);
+  padding: 0;
+  overflow: hidden;
+}
+
+.jobs-map-popup .leaflet-popup-content {
+  margin: 0;
+  width: 220px !important;
+}
+
+.jobs-map-popup .leaflet-popup-tip {
+  background: var(--popover);
+}
