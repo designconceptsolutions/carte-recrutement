@@ -23,6 +23,8 @@ export interface Job {
   details?: string;
   contract?: ContractType;
   housing?: HousingStatus;
+  /** Date d'entrée du poste (ISO `YYYY-MM-DD`) — alimente l'onglet « Nouveautés ». */
+  createdAt?: string;
 }
 
 interface Place {
@@ -44,6 +46,20 @@ interface EntryDef {
   roleVariant: string;
   details: string;
   note?: string;
+  createdAt: string;
+}
+
+/** Un poste est marqué « Nouveau » s'il est entré dans les 14 derniers jours. */
+export const NEW_BADGE_DAYS = 14;
+/** L'onglet « Nouveautés » liste les postes entrés dans les 30 derniers jours. */
+export const NEW_TAB_DAYS = 30;
+
+/** Nombre de jours écoulés depuis `createdAt`, ou `null` si la date est absente/invalide. */
+export function daysSince(createdAt: string | undefined, now: Date = new Date()): number | null {
+  if (!createdAt) return null;
+  const parsed = Date.parse(createdAt);
+  if (Number.isNaN(parsed)) return null;
+  return Math.floor((now.getTime() - parsed) / 86_400_000);
 }
 
 export const ROLE_GROUPS = [
@@ -279,6 +295,7 @@ const PLACES: Place[] = [
 const ENTRIES: EntryDef[] = [
   {
     id: "job-01",
+    createdAt: "2026-08-08",
     placeId: "cristal-palace-paris",
     roleGroup: "Chef de partie",
     roleVariant: "Chef de partie CDI",
@@ -286,6 +303,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-02",
+    createdAt: "2026-08-01",
     placeId: "cristal-palace-paris",
     roleGroup: "Réceptionniste",
     roleVariant: "Réceptionniste tournant",
@@ -293,6 +311,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-03",
+    createdAt: "2026-07-27",
     placeId: "villa-azur-prestige",
     roleGroup: "Sous-chef",
     roleVariant: "Sous-chef saison",
@@ -300,6 +319,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-04",
+    createdAt: "2026-07-22",
     placeId: "chateau-des-cimes",
     roleGroup: "Maître d'hôtel",
     roleVariant: "Maître d'hôtel restaurant gastronomique",
@@ -307,6 +327,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-05",
+    createdAt: "2026-07-06",
     placeId: "belvedere-etoile",
     roleGroup: "Chef de partie",
     roleVariant: "Chef de partie pâtisserie",
@@ -314,6 +335,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-06",
+    createdAt: "2026-06-28",
     placeId: "riviera-palace",
     roleGroup: "Concierge",
     roleVariant: "Concierge Clefs d'Or",
@@ -321,6 +343,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-07",
+    createdAt: "2026-06-10",
     placeId: "phare-dore",
     roleGroup: "Gouvernante",
     roleVariant: "Gouvernante générale",
@@ -328,6 +351,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-08",
+    createdAt: "2026-05-25",
     placeId: "villa-imperiale",
     roleGroup: "Directeur de restaurant",
     roleVariant: "Directeur de restaurant gastronomique",
@@ -335,6 +359,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-09",
+    createdAt: "2026-05-09",
     placeId: "domaine-des-cedres",
     roleGroup: "Chef de rang",
     roleVariant: "Chef de rang CDD",
@@ -342,6 +367,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-10",
+    createdAt: "2026-04-24",
     placeId: "grand-hotel-des-alpes",
     roleGroup: "Barman",
     roleVariant: "Barman de palace",
@@ -349,6 +375,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-11",
+    createdAt: "2026-08-12",
     placeId: "bistrot-la-ruche",
     roleGroup: "Chef de rang",
     roleVariant: "Chef de rang bistrot",
@@ -356,6 +383,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-12",
+    createdAt: "2026-08-04",
     placeId: "brasserie-du-port",
     roleGroup: "Commis de cuisine",
     roleVariant: "Commis de cuisine CDD",
@@ -363,6 +391,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-13",
+    createdAt: "2026-07-17",
     placeId: "le-petit-marche",
     roleGroup: "Chef de rang",
     roleVariant: "Serveur / serveuse",
@@ -370,6 +399,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-14",
+    createdAt: "2026-06-19",
     placeId: "bistrot-des-lices",
     roleGroup: "Chef de partie",
     roleVariant: "Chef de partie CDD",
@@ -377,6 +407,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-15",
+    createdAt: "2026-06-02",
     placeId: "table-conviviale",
     roleGroup: "Second de cuisine",
     roleVariant: "Second de cuisine",
@@ -384,6 +415,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-16",
+    createdAt: "2026-05-18",
     placeId: "auberge-vieux-lille",
     roleGroup: "Chef de rang",
     roleVariant: "Chef de rang auberge",
@@ -391,6 +423,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-17",
+    createdAt: "2026-05-02",
     placeId: "comptoir-alsacien",
     roleGroup: "Barman",
     roleVariant: "Barman comptoir",
@@ -398,6 +431,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-18",
+    createdAt: "2026-04-16",
     placeId: "bistrot-capitole",
     roleGroup: "Commis de salle",
     roleVariant: "Commis de salle",
@@ -405,6 +439,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-19",
+    createdAt: "2026-04-09",
     placeId: "cabane-du-lac",
     roleGroup: "Chef de partie",
     roleVariant: "Chef de partie montagne",
@@ -412,6 +447,7 @@ const ENTRIES: EntryDef[] = [
   },
   {
     id: "job-20",
+    createdAt: "2026-04-02",
     placeId: "bistrot-capitole",
     roleGroup: "Plongeur",
     roleVariant: "Plongeur / aide de cuisine",
@@ -491,5 +527,6 @@ export const JOBS: Job[] = ENTRIES.map((entry) => {
     details: entry.details,
     contract: parseContract(entry.details),
     housing: parseHousing(entry.details),
+    createdAt: entry.createdAt,
   };
-});
+}).sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""));
