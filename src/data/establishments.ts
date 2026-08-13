@@ -84,7 +84,31 @@ const RAW: Record<string, EstablishmentLocation> = {
   // ---- Corse ----
   "santa giulia": { city: "Porto-Vecchio", region: "Corse", country: "France", lat: 41.5333, lng: 9.2833, precision: "etablissement" },
 
+  // ---- Enseignes identifiées après coup (voir README § Localisation) ----
+  // Hôtel SAX Paris, 55 avenue de Saxe. Le tableau le note 4*, l'établissement
+  // est classé 5* — les étoiles du tableau sont irrégulières.
+  "sax": { city: "Paris", region: "Île-de-France", country: "France", lat: 48.8483, lng: 2.3092, precision: "etablissement" },
+  // M Social Hotel Paris (Millennium), 12 boulevard Haussmann.
+  "m social": { city: "Paris", region: "Île-de-France", country: "France", lat: 48.8721, lng: 2.3379, precision: "etablissement" },
+  // ANTO, faubourg Sainte-Claire, vieille ville d'Annecy — chef Anthony Bisquerra.
+  "anto": { city: "Annecy", region: "Auvergne-Rhône-Alpes", country: "France", lat: 45.8983, lng: 6.1264, precision: "etablissement" },
+  // Le Grillon, 111 route la Plagne — restaurant savoyard de Morzine.
+  "le grillon": { city: "Morzine", region: "Auvergne-Rhône-Alpes", country: "France", lat: 46.1795, lng: 6.7089, precision: "etablissement" },
+  // Grand Hôtel du Lion d'Or, Relais & Châteaux étoilé de Romorantin.
+  "le lion d or": { city: "Romorantin-Lanthenay", region: "Centre-Val de Loire", country: "France", lat: 47.3561, lng: 1.7433, precision: "etablissement" },
+  // Maison Le Chevreuil, place de la République — hôtel-restaurant de Meursault.
+  "maison le chevreuil": { city: "Meursault", region: "Bourgogne-Franche-Comté", country: "France", lat: 46.9789, lng: 4.7686, precision: "etablissement" },
+  // La Cocotte d'Isidore, restaurant du Best Western Plus Isidore (agglomération de Rennes).
+  "cocotte d isidore": { city: "Saint-Jacques-de-la-Lande", region: "Bretagne", country: "France", lat: 48.0736, lng: -1.7203, precision: "etablissement" },
+  // Beyond Places : groupe de gestion hôtelière. Le poste étant un rôle de
+  // siège, la position est celle du siège social (Domaine de Massane).
+  "beyond places": { city: "Baillargues", region: "Occitanie", country: "France", lat: 43.6597, lng: 4.0083, precision: "etablissement" },
+
   // ---- Hors France métropolitaine ----
+  // Romi, restaurant du Tropical Hotel à Saint-Jean — sa signature est le
+  // show-cooking, ce qui explique le libellé du tableau. Identification
+  // probable, à confirmer : position posée au niveau du quartier.
+  "romi beach show": { city: "Saint-Barthélemy", region: "Antilles", country: "Saint-Barthélemy", lat: 17.8992, lng: -62.8419, precision: "ville" },
   "sbm": { city: "Monaco", region: "Monaco", country: "Monaco", lat: 43.7396, lng: 7.4276, precision: "etablissement" },
   "eden roc saint barth": { city: "Saint-Barthélemy", region: "Antilles", country: "Saint-Barthélemy", lat: 17.8983, lng: -62.8319, precision: "etablissement" },
   "chateau royal noumea": { city: "Nouméa", region: "Nouvelle-Calédonie", country: "Nouvelle-Calédonie", lat: -22.2758, lng: 166.4572, precision: "etablissement" },
