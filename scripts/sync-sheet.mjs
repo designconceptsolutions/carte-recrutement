@@ -267,8 +267,11 @@ async function main() {
   }
 
   let previous = [];
+  let previousSyncedAt = null;
   try {
-    previous = JSON.parse(readFileSync(TARGET, "utf8")).rows ?? [];
+    const stored = JSON.parse(readFileSync(TARGET, "utf8"));
+    previous = stored.rows ?? [];
+    previousSyncedAt = stored.syncedAt ?? null;
   } catch {
     // Pas encore de fichier : première synchronisation.
   }
@@ -304,16 +307,25 @@ async function main() {
     console.log(`Lignes retirées    : ${previous.length - merged.length}`);
   }
 
+  // `syncedAt` daterait chaque passage, y compris ceux qui ne rapportent
+  // rien : le fichier différerait toujours, la vérification « a-t-il changé »
+  // ne dirait jamais non, et chaque passage produirait un commit puis un
+  // redéploiement. On ne le redate donc que lorsque les lignes ont bougé —
+  // ce qui colle au libellé affiché, « Mis à jour le… ».
+  const unchanged = JSON.stringify(merged) === JSON.stringify(previous);
+  const syncedAt = unchanged && previousSyncedAt ? previousSyncedAt : new Date().toISOString();
+
+  if (unchanged) {
+    console.log("\nAucun changement : le tableau est identique au dernier passage.");
+  }
+
   if (DRY_RUN) {
     console.log("\n--dry-run : aucun fichier écrit.");
     return;
   }
 
-  writeFileSync(
-    TARGET,
-    JSON.stringify({ syncedAt: new Date().toISOString(), rows: merged }, null, 2) + "\n"
-  );
-  console.log(`\n${TARGET} mis à jour.`);
+  writeFileSync(TARGET, JSON.stringify({ syncedAt, rows: merged }, null, 2) + "\n");
+  console.log(`\n${TARGET} ${unchanged ? "inchangé" : "mis à jour"}.`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
